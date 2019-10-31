@@ -2,13 +2,19 @@ import * as Yup from 'yup';
 import Student from '../models/Student';
 
 class StudentController {
+  async index(req, res) {
+    const student = await Student.findAll({ order: ['id'] });
+
+    return res.json(student);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string()
         .email()
         .required(),
-      age: Yup.integer().required(),
+      age: Yup.number().required(),
       weight: Yup.number().required(),
       height: Yup.number().required(),
     });
@@ -47,7 +53,7 @@ class StudentController {
       email: Yup.string()
         .email()
         .required(),
-      age: Yup.integer(),
+      age: Yup.number(),
       weight: Yup.number(),
       height: Yup.number(),
     });
@@ -58,29 +64,32 @@ class StudentController {
       });
     }
 
-    // Ajustar - Buscar ID do student via params
-    const user = await Student.findByPk(req.userID);
+    const { id: id_student } = req.params;
+    const student = await Student.findByPk(id_student);
 
     const { email } = req.body;
 
-    if (email !== user.email) {
-      const userExists = await Student.findOne({
+    if (email !== student.email) {
+      const studentExists = await Student.findOne({
         where: { email },
       });
 
-      if (userExists) {
+      if (studentExists) {
         return res.status(400).json({
-          error: 'User already exists.',
+          error: 'Student already exists.',
         });
       }
     }
 
-    const { id, name } = await user.update(req.body);
+    const { id, name, age, weight, height } = await student.update(req.body);
 
     return res.json({
       id,
-      name,
       email,
+      name,
+      age,
+      weight,
+      height,
     });
   }
 }
