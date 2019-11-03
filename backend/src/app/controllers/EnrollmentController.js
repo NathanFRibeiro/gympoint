@@ -1,9 +1,10 @@
 import * as Yup from 'yup';
-import { addMonths, parseISO } from 'date-fns';
+import { addMonths, parseISO, format } from 'date-fns';
 
 import Enrollment from '../models/Enrollment';
 import Student from '../models/Student';
 import Plan from '../models/Plan';
+import Mail from '../../lib/Mail';
 
 class EnrollmentController {
   async index(req, res) {
@@ -65,6 +66,21 @@ class EnrollmentController {
       student_id,
       end_date,
       price,
+    });
+
+    await Mail.sendMail({
+      to: `${studentExist.name} <${studentExist.email}>`,
+      subject: 'New Enrollment',
+      template: 'enrollment',
+      context: {
+        name: studentExist.name,
+        planName: planExist.title,
+        planPrice: parseFloat(planExist.price).toFixed(2),
+        planDuration: planExist.duration,
+        start_date : format(start_date, "MMMM' 'dd', 'yyyy"),
+        end_date : format(end_date, "MMMM' 'dd', 'yyyy"),
+        totalPrice: parseFloat(price).toFixed(2),
+      },
     });
 
     return res.json({
