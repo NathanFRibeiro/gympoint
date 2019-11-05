@@ -77,8 +77,8 @@ class EnrollmentController {
         planName: planExist.title,
         planPrice: parseFloat(planExist.price).toFixed(2),
         planDuration: planExist.duration,
-        start_date : format(start_date, "MMMM' 'dd', 'yyyy"),
-        end_date : format(end_date, "MMMM' 'dd', 'yyyy"),
+        start_date: format(start_date, "MMMM' 'dd', 'yyyy"),
+        end_date: format(end_date, "MMMM' 'dd', 'yyyy"),
         totalPrice: parseFloat(price).toFixed(2),
       },
     });
