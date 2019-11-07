@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 
 import HelpOrder from '../models/HelpOrder';
 import Student from '../models/Student';
+import Mail from '../../lib/Mail';
 
 class HelpOrderController {
   async index(req, res) {
@@ -95,6 +96,17 @@ class HelpOrderController {
         ],
       }
     );
+
+    await Mail.sendMail({
+      to: `${student.name} <${student.email}>`,
+      subject: 'Your question has been answered!',
+      template: 'helporder',
+      context: {
+        name: student.name,
+        question,
+        answer,
+      },
+    });
 
     return res.json({
       id,
