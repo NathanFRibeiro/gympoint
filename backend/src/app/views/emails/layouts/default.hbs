@@ -1,7 +1,61 @@
-<div style="font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #222; max-width:600px">
+<link rel="stylesheet" type="text/css" href="styles.css">
 
-  {{{ body }}}
+<div class="container">
+  {{> header}}
+  <div class="content">
+    {{{ body }}}
+  </div>
 
   {{> footer}}
 
 </div>
+
+<style>
+  .container {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #222;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  header {
+    display: flex;
+    background: #EE4D64;
+    color: white;
+    height: 60px;
+    align-items: center;
+  }
+
+  header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    font-size: 14px;
+    padding: 0 20px;
+  }
+
+  nav img {
+    height: 45px;
+  }
+
+  footer {
+    display: flex;
+    background: #EE4D64;
+    color: white;
+    height: 50px;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
+  }
+
+  .content {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f2f2;
+    padding: 20px;
+  }
+</style>
