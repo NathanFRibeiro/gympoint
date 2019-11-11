@@ -1,10 +1,11 @@
 import * as Yup from 'yup';
-import { addMonths, parseISO, format } from 'date-fns';
+import { addMonths, parseISO } from 'date-fns';
 
 import Enrollment from '../models/Enrollment';
 import Student from '../models/Student';
 import Plan from '../models/Plan';
-import Mail from '../../lib/Mail';
+import Queue from '../../lib/Queue';
+import NewEnrollmentMail from '../jobs/NewEnrollmentMail';
 
 class EnrollmentController {
   async index(req, res) {
@@ -13,7 +14,7 @@ class EnrollmentController {
         canceled_at: null,
       },
       order: ['start_date'],
-      attributes: ['id', 'start_date', 'price', 'end_date'],
+      attributes: ['id', 'start_date', 'end_date', 'price', 'active'],
       include: [
         {
           model: Student,
@@ -68,19 +69,12 @@ class EnrollmentController {
       price,
     });
 
-    await Mail.sendMail({
-      to: `${studentExist.name} <${studentExist.email}>`,
-      subject: 'New Enrollment',
-      template: 'enrollment',
-      context: {
-        name: studentExist.name,
-        planName: planExist.title,
-        planPrice: parseFloat(planExist.price).toFixed(2),
-        planDuration: planExist.duration,
-        start_date: format(start_date, "MMMM' 'dd', 'yyyy"),
-        end_date: format(end_date, "MMMM' 'dd', 'yyyy"),
-        totalPrice: parseFloat(price).toFixed(2),
-      },
+    await Queue.add(NewEnrollmentMail.key, {
+      studentExist,
+      planExist,
+      start_date,
+      end_date,
+      price,
     });
 
     return res.json({
