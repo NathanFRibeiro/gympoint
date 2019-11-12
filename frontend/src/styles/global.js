@@ -22,7 +22,8 @@ html, body, #root {
   }
 
   body, input, button {
-    font: 14px 'Roboto', sans-serif;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
   }
 
   a {
