@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
-  max-width: 1200px;
+  max-width: 800px;
   margin: 50px auto;
   display: flex;
   flex-direction: column;
@@ -13,49 +13,28 @@ export const TitleBar = styled.div`
   justify-content: space-between;
   margin: 20px 0px;
 
-  aside {
-    width: 430px;
+  button {
+    width: 120px;
+    height: 30px;
+    background: #ee4d64;
+    font-weight: bold;
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background 0.2s;
+    padding: 0px 10px;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: space-around;
 
-    input {
-      width: 300px;
-      background: #ffff;
-      border: 1px solid #cccc;
-      border-radius: 4px;
-      height: 30px;
-      padding: 0 15px;
-      color: #222;
-      margin: 0 0 10px;
-
-      &::placeholder {
-        color: rgba(180, 180, 180);
-      }
-    }
-
-    button {
-      width: 120px;
-      height: 30px;
-      background: #ee4d64;
-      font-weight: bold;
-      color: #fff;
-      border: 0;
-      border-radius: 4px;
-      font-size: 16px;
-      transition: background 0.2s;
-      padding: 0px 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-
-      &:hover {
-        background: ${darken(0.03, '#EE4D64')};
-      }
+    &:hover {
+      background: ${darken(0.03, '#EE4D64')};
     }
   }
 `;
 
-export const StudentTable = styled.table`
+export const PlanTable = styled.table`
   width: 100%;
   padding: 15px;
   background: #fff;
@@ -75,7 +54,7 @@ export const StudentTable = styled.table`
     padding: 12px 0px;
 
     div {
-      width: 40%;
+      width: 45%;
       display: flex;
       justify-content: space-between;
       margin-left: 50px;
@@ -86,7 +65,7 @@ export const StudentTable = styled.table`
     }
 
     :nth-child(4) {
-      width: 15%;
+      width: 20%;
     }
   }
 

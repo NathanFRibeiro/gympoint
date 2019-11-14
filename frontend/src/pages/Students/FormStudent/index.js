@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
@@ -24,13 +24,25 @@ const schema = Yup.object().shape({
     .integer(),
 });
 
-export default function NewStudent() {
+export default function FormStudent({ match }) {
+  const [mode, setMode] = useState('New');
+
+  useEffect(() => {
+    const { studentID } = match.params;
+
+    if (studentID) {
+      setMode('Edit');
+      // Get student and fill the form
+    }
+  }, [match]);
+
   return (
     <Container>
       <TitleBar>
-        <h2>Students Management</h2>
+        {mode === 'New' ? <h2>Student Registration</h2> : <h2>Student Name</h2>}
+
         <Link to="/students/">
-          <button type="button">Back</button>
+          <button type="button">BACK</button>
         </Link>
       </TitleBar>
 
@@ -60,7 +72,9 @@ export default function NewStudent() {
           </div>
         </HorizontalInputs>
 
-        <button type="submit">Register</button>
+        <button type="submit">
+          {mode === 'New' ? 'CREATE STUDENT' : 'UPDATE STUDENT'}
+        </button>
       </Form>
     </Container>
   );

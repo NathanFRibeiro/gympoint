@@ -34,6 +34,9 @@ module.exports = {
     'no-param-reassign': 'off',
     'react/prop-types': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'no-unused-expressions': 'off',
+    'no-alert': 'off',
+    'jsx-a11y/control-has-associated-label': 'off',
 
     // 'react-hooks/rules-of-hooks': 'error',
     // 'react-hooks/exhaustive-deps': 'warn',

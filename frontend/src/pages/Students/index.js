@@ -1,17 +1,29 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 
 import { Container, TitleBar, StudentTable } from './styles';
 
 export default function Students() {
+  const history = useHistory();
+
+  function handleDelete() {
+    console.log('deleted');
+  }
+
+  function handleEdit(studentID) {
+    history.push(`/students/${studentID}`);
+  }
+
   return (
     <Container>
       <TitleBar>
-        <h2>Students Management</h2>
+        <h2>Student Management</h2>
         <aside>
           <Link to="/students/new">
-            <button type="button">Register</button>
+            <button type="button">
+              <FaPlus /> New Student
+            </button>
           </Link>
           <input type="text" placeholder="Search student" />
         </aside>
@@ -33,68 +45,19 @@ export default function Students() {
             <td>25</td>
             <td>
               <div>
-                <a href="#">edit</a>
-                <a href="#">delete</a>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Nathan Ribeiro</td>
-            <td>nathan@gympoint.com</td>
-            <td>25</td>
-            <td>
-              <div>
-                <a href="#">edit</a>
-                <a href="#">delete</a>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Nathan Ribeiro</td>
-            <td>nathan@gympoint.com</td>
-            <td>25</td>
-            <td>
-              <div>
-                <a href="#">edit</a>
-                <a href="#">delete</a>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Nathan Ribeiro</td>
-            <td>nathan@gympoint.com</td>
-            <td>25</td>
-            <td>
-              <div>
-                <a href="#">edit</a>
-                <a href="#">delete</a>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Nathan Ribeiro</td>
-            <td>nathan@gympoint.com</td>
-            <td>25</td>
-            <td>
-              <div>
-                <a href="#">edit</a>
-                <a href="#">delete</a>
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Nathan Ribeiro</td>
-            <td>nathan@gympoint.com</td>
-            <td>25</td>
-            <td>
-              <div>
-                <a href="#">edit</a>
-                <a href="#">delete</a>
+                <button onClick={() => handleEdit(1)} type="button">
+                  <FaEdit size={16} color="#fff" />
+                </button>
+                <button
+                  onClick={() => {
+                    window.confirm(
+                      'Are you sure you wish to delete this student?'
+                    ) && handleDelete();
+                  }}
+                  type="button"
+                >
+                  <FaTrash size={16} color="#fff" />
+                </button>
               </div>
             </td>
           </tr>
