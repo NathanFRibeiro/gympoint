@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaPlus, FaRegIdCard } from 'react-icons/fa';
+import { FaRegIdCard } from 'react-icons/fa';
 import { MdAttachMoney, MdQuestionAnswer, MdPeople } from 'react-icons/md';
 
 import { Container, Panel } from './styles';
