@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 
 import SignIn from '~/pages/SignIn';
+import Dashboard from '~/pages/Dashboard';
 import Students from '~/pages/Students';
 import Plans from '~/pages/Plans';
 import Enrollments from '~/pages/Enrollments';
@@ -16,6 +17,9 @@ export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={SignIn} />
+
+      <Route path="/dashboard" exact component={Dashboard} isPrivate />
+
       <Route path="/students" exact component={Students} isPrivate />
       <Route path="/students/new" exact component={FormStudent} isPrivate />
       <Route

@@ -20,6 +20,7 @@ export default function Header() {
       <Content>
         <nav>
           <img src={logo} alt="Gympoint" />
+          <Link to="/dashboard">HOME</Link>
           <Link to="/students">STUDENTS</Link>
           <Link to="/plans">PLANS</Link>
           <Link to="/enrollments">ENROLLMENTS</Link>
