@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
-import AsyncSelect from 'react-select/async';
 import { Form, Input } from '@rocketseat/unform';
 import { Link } from 'react-router-dom';
 import { Container, TitleBar, HorizontalInputs } from './styles';

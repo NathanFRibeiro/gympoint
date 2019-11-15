@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FaPlus, FaEdit, FaTrash, FaCircle } from 'react-icons/fa';
 
 import { Container, TitleBar, EnrollmentTable } from './styles';
+import api from '~/services/api';
 
 export default function Enrollments() {
   const history = useHistory();

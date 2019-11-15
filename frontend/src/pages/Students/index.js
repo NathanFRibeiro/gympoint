@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 
 import { Container, TitleBar, StudentTable } from './styles';
+import api from '~/services/api';
 
 export default function Students() {
+  const [students, setStudents] = useState([]);
+
   const history = useHistory();
 
   function handleDelete() {
@@ -14,6 +17,17 @@ export default function Students() {
   function handleEdit(studentID) {
     history.push(`/students/${studentID}`);
   }
+
+  useEffect(() => {
+    async function loadStudents() {
+      const response = await api.get('students');
+
+      setStudents(response.data);
+      console.log(students);
+    }
+
+    loadStudents();
+  }, []);
 
   return (
     <Container>
