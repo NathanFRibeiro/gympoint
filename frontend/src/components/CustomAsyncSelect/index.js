@@ -2,15 +2,21 @@ import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AsyncSelect from 'react-select/async';
 import { useField } from '@rocketseat/unform';
+import makeAnimated from 'react-select/animated';
 
 import { Field } from './styles';
+
+const animatedComponents = makeAnimated();
 
 export default function CustomAsyncSelect({
   name,
   loadOptions,
   cacheOptions,
-  defaultValue,
+  value,
   placeholder,
+  options,
+  inputValue,
+  defaultValue,
 }) {
   const ref = useRef(null);
   const { fieldName, registerField, error } = useField(name);
@@ -37,15 +43,16 @@ export default function CustomAsyncSelect({
     <Field>
       <AsyncSelect
         name={fieldName}
-        aria-label={fieldName}
         placeholder={placeholder}
         loadOptions={loadOptions}
-        cacheOptions={cacheOptions}
-        defaultValue={defaultValue}
         ref={ref}
         getOptionValue={option => option.id}
         getOptionLabel={option => option.name}
         classNamePrefix="react-select"
+        components={animatedComponents}
+        options={options}
+        defaultOptions
+        defaultValue={defaultValue}
       />
 
       {error && <span>{error}</span>}
@@ -57,10 +64,6 @@ CustomAsyncSelect.propTypes = {
   name: PropTypes.string.isRequired,
   loadOptions: PropTypes.func.isRequired,
   cacheOptions: PropTypes.bool.isRequired,
-  defaultValue: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-  }),
   placeholder: PropTypes.string,
 };
 

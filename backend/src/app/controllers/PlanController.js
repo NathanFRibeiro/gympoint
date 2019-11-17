@@ -27,7 +27,7 @@ class PlanController {
     }
 
     const planExists = await Plan.findOne({
-      where: { title: req.body.title },
+      where: { title: req.body.title, canceled_at: null },
     });
 
     if (planExists) {
@@ -64,7 +64,7 @@ class PlanController {
 
     if (title !== Plan.title) {
       const planExists = await Plan.findOne({
-        where: { title },
+        where: { title, canceled_at: null },
       });
 
       if (planExists) {

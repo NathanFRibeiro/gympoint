@@ -25,12 +25,19 @@ export const Container = styled.div`
       border-radius: 4px;
       height: 44px;
       padding: 0 15px;
-      color: #222;
-      font-size: 16px;
+      color: #555;
       margin-top: 10px;
 
       &::placeholder {
         color: #9999;
+      }
+
+      &:disabled {
+        background: #eee;
+
+        &:hover {
+          cursor: not-allowed;
+        }
       }
     }
 

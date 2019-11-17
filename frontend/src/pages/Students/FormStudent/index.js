@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Container, TitleBar, HorizontalInputs } from './styles';
 import api from '~/services/api';
+import throwError from '~/services/error';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -36,9 +37,7 @@ export default function FormStudent({ match }) {
     async function loadStudent() {
       const { data } = await api.get('students');
 
-      const item = await data.filter(
-        object => object.id === parseInt(studentID)
-      );
+      const item = await data.filter(object => object.id === Number(studentID));
 
       await setStudent(item[0]);
     }
@@ -46,7 +45,6 @@ export default function FormStudent({ match }) {
     if (studentID) {
       loadStudent();
       setMode('Edit');
-      console.log(student);
     }
   }, [match]);
 
@@ -62,15 +60,13 @@ export default function FormStudent({ match }) {
         weight,
       })
       .then(() => {
-        toast.success(`Sucess! Student created.`, {
+        toast.success(`Success! Student created.`, {
           autoClose: 5000,
         });
         history.push('/students');
       })
       .catch(error => {
-        toast.error(`Error: ${error.response.data.error}`, {
-          autoClose: 5000,
-        });
+        throwError(error);
       });
   }
 
@@ -86,15 +82,13 @@ export default function FormStudent({ match }) {
         weight,
       })
       .then(() => {
-        toast.success(`Sucess! Student edited.`, {
+        toast.success(`Success! Student edited.`, {
           autoClose: 5000,
         });
         history.push('/students');
       })
       .catch(error => {
-        toast.error(`Error: ${error.response.data.error}`, {
-          autoClose: 5000,
-        });
+        throwError(error);
       });
   }
 

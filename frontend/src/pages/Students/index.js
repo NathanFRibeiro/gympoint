@@ -5,6 +5,7 @@ import { FaPlus, FaEdit } from 'react-icons/fa';
 import { Container, TitleBar, StudentTable } from './styles';
 
 import api from '~/services/api';
+import throwError from '~/services/error';
 
 export default function Students() {
   const [students, setStudents] = useState([]);
@@ -17,9 +18,14 @@ export default function Students() {
 
   useEffect(() => {
     async function loadStudents() {
-      const response = await api.get('students');
-
-      setStudents(response.data);
+      await api
+        .get('students/')
+        .then(response => {
+          setStudents(response.data);
+        })
+        .catch(error => {
+          throwError(error);
+        });
     }
 
     loadStudents();
@@ -27,9 +33,14 @@ export default function Students() {
 
   async function handleChange(e) {
     if (e.key === 'Enter') {
-      const response = await api.get(`students/?name=${e.target.value}`);
-
-      setStudents(response.data);
+      await api
+        .get(`students/?name=${e.target.value}`)
+        .then(response => {
+          setStudents(response.data);
+        })
+        .catch(error => {
+          throwError(error);
+        });
     }
   }
 
