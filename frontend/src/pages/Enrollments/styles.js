@@ -36,6 +36,7 @@ export const TitleBar = styled.div`
 
 export const EnrollmentTable = styled.table`
   width: 100%;
+  height: 100%;
   padding: 15px;
   background: #fff;
   border-radius: 5px;

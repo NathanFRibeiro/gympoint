@@ -11,11 +11,11 @@ const animatedComponents = makeAnimated();
 export default function CustomAsyncSelect({
   name,
   loadOptions,
-  cacheOptions,
-  value,
+  optionID,
+  optionName,
   placeholder,
   options,
-  inputValue,
+
   defaultValue,
 }) {
   const ref = useRef(null);
@@ -45,11 +45,9 @@ export default function CustomAsyncSelect({
         name={fieldName}
         placeholder={placeholder}
         loadOptions={loadOptions}
-        ref={ref}
-        getOptionValue={option => option.id}
-        getOptionLabel={option => option.name}
+        getOptionValue={optionID}
+        getOptionLabel={optionName}
         classNamePrefix="react-select"
-        components={animatedComponents}
         options={options}
         defaultOptions
         defaultValue={defaultValue}

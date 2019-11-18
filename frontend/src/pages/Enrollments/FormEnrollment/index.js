@@ -5,46 +5,27 @@ import { Form, Input } from '@rocketseat/unform';
 import { Link, useHistory } from 'react-router-dom';
 import { parseISO, addMonths, format, isValid } from 'date-fns';
 import { toast } from 'react-toastify';
+import AsyncSelect from 'react-select/async';
 import { Container, TitleBar, HorizontalInputs } from './styles';
-import CustomAsyncSelect from '~/components/CustomAsyncSelect';
 import api from '~/services/api';
 import throwError from '~/services/error';
 
-// const schema = Yup.object().shape({
-//   name: Yup.string().required('Name is required'),
-//   email: Yup.string()
-//     .email('Insert a valid e-mail')
-//     .required('E-mail is required'),
-//   weight: Yup.number()
-//     .typeError('Insert a valid number')
-//     .required('Age is required')
-//     .positive('This number should be a positive'),
-//   height: Yup.number()
-//     .typeError('Insert a valid number')
-//     .required('Age is required')
-//     .positive('This number should be a positive'),
-//   age: Yup.number()
-//     .typeError('Insert a valid number')
-//     .required('Age is required')
-//     .positive('This number should be a positive')
-//     .integer(),
-// });
+// Validação com yup
 
 export default function FormEnrollment({ match }) {
   const [mode, setMode] = useState('New');
-  const [enrollment, setEnrollment] = useState([]);
+  const [students, setStudents] = useState([]);
   const [plans, setPlans] = useState([]);
-  const [options, setOptions] = useState([]);
+  const [studentSelected, setStudentSelected] = useState();
   const [planSelected, setPlanSelected] = useState();
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [totalPrice, setTotalPrice] = useState((0).toFixed(2));
-  const [studentSelected, setStudentSelected] = useState();
+  const [options, setOptions] = useState([]);
 
   const history = useHistory();
-  const { enrollmentID } = match.params;
 
-  useMemo(async () => {
+  async function loadCalculatedFields() {
     const plan = await plans.filter(p => p.id === Number(planSelected));
 
     if (plan[0]) {
@@ -60,9 +41,42 @@ export default function FormEnrollment({ match }) {
 
       setTotalPrice(newTotalPrice.toFixed(2));
     }
+  }
+
+  async function loadEnrollment() {
+    await api
+      .get(`enrollment/${match.params.enrollmentID}`)
+      .then(async response => {
+        if (response.data) {
+          setStudentSelected(response.data[0].student.id);
+          setStartDate(
+            format(parseISO(response.data[0].start_date), 'yyyy-MM-dd')
+          );
+          setPlanSelected(response.data[0].plan.id);
+          loadCalculatedFields();
+        }
+      });
+  }
+
+  useMemo(async () => {
+    loadCalculatedFields();
   }, [planSelected, startDate]);
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function loadStudents() {
+      await api
+        .get('students')
+        .then(response => {
+          const formattedStudents = response.data.map(e => ({
+            value: e.id,
+            label: e.name,
+          }));
+
+          setStudents(formattedStudents);
+        })
+        .catch(error => throwError(error));
+    }
+
     async function loadPlans() {
       const planResponse = await api.get('plans');
 
@@ -75,68 +89,41 @@ export default function FormEnrollment({ match }) {
       setOptions(planOptions);
     }
 
-    async function loadEnrollment() {
-      const { data } = await api.get('enrollment');
-
-      const item = await data.filter(
-        object => object.id === Number(enrollmentID)
-      );
-
-      console.log(item);
-
-      setStudentSelected({
-        id: Number(item[0].student.id),
-        name: item[0].student.name,
-      });
-
-      setStartDate(format(parseISO(item[0].start_date), 'yyyy-MM-dd'));
-
-      await setEnrollment(item[0]);
-    }
-
+    loadStudents();
     loadPlans();
 
-    if (enrollmentID) {
+    if (match.params.enrollmentID) {
       setMode('Edit');
-      await loadEnrollment();
+      setTimeout(() => {
+        loadEnrollment();
+      }, 200);
     }
-  }, [match]);
+  }, []);
 
-  async function loadStudents(name) {
-    const response = name
-      ? await api.get('students', {
-          params: {
-            name,
-          },
-        })
-      : await api.get('students');
+  /**
+   * Async Select functions
+   *
+   */
 
-    const students = response.data.map(student => ({
-      id: student.id,
-      name: student.name,
-    }));
+  const filterStudents = inputValue => {
+    return students.filter(i =>
+      i.label.toLowerCase().includes(inputValue.toLowerCase())
+    );
+  };
 
-    return students;
-  }
+  const loadOptionsStudent = (inputValue, callback) => {
+    callback(filterStudents(inputValue));
+  };
 
-  const loadSelectedStudent = inputValue =>
-    new Promise(resolve => {
-      setTimeout(() => {
-        resolve(loadStudents(inputValue));
-      }, 1000);
-    });
-
-  const loadAllStudents = () =>
-    new Promise(resolve => {
-      setTimeout(() => {
-        resolve(loadStudents());
-      }, 1000);
-    });
+  /**
+   * Submit functions: create and edit
+   * *
+   */
 
   async function create(data) {
-    const { student_id, start_date } = data;
+    const { start_date } = data;
 
-    const studentID = Number(student_id);
+    const studentID = Number(studentSelected);
     const planID = Number(planSelected);
 
     await api
@@ -158,13 +145,13 @@ export default function FormEnrollment({ match }) {
   }
 
   async function edit(data) {
-    const { student_id, start_date } = data;
+    const { start_date } = data;
 
-    const studentID = Number(student_id);
+    const studentID = Number(studentSelected);
     const planID = Number(planSelected);
 
     await api
-      .put(`enrollment/${enrollmentID}`, {
+      .put(`enrollment/${match.params.enrollmentID}`, {
         start_date,
         student_id: studentID,
         plan_id: planID,
@@ -177,6 +164,7 @@ export default function FormEnrollment({ match }) {
         history.push('/enrollments');
       })
       .catch(error => {
+        console.log(error);
         throwError(error);
       });
   }
@@ -188,11 +176,7 @@ export default function FormEnrollment({ match }) {
   return (
     <Container>
       <TitleBar>
-        {mode === 'New' ? (
-          <h2>Enrollment Registration</h2>
-        ) : (
-          <h2>Enrollment edit</h2>
-        )}
+        {mode === 'New' ? <h2>New enrollment</h2> : <h2>Edit Enrollment</h2>}
 
         <Link to="/enrollments/">
           <button type="button">BACK</button>
@@ -202,14 +186,15 @@ export default function FormEnrollment({ match }) {
       <Form onSubmit={handleSubmit}>
         <div>
           <strong>STUDENT</strong>
-          <CustomAsyncSelect
+          <AsyncSelect
             name="student_id"
-            placeholder="Search student"
+            classNamePrefix="react-select"
             cacheOptions
-            loadOptions={loadSelectedStudent}
-            options={loadAllStudents}
-            defaultOptions
-            defaultValue={studentSelected}
+            loadOptions={loadOptionsStudent}
+            defaultOptions={students}
+            placeholder="Select a student"
+            onChange={option => setStudentSelected(option.value)}
+            value={students.filter(option => option.value === studentSelected)}
           />
         </div>
 

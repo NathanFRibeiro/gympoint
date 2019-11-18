@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { addMonths, parseISO } from 'date-fns';
+import { addMonths, parseISO, addHours } from 'date-fns';
 
 import Enrollment from '../models/Enrollment';
 import Student from '../models/Student';
@@ -9,11 +9,12 @@ import NewEnrollmentMail from '../jobs/NewEnrollmentMail';
 
 class EnrollmentController {
   async index(req, res) {
+    const { id } = req.params;
+
+    const condition = id ? { canceled_at: null, id } : { canceled_at: null };
+
     const enrollments = await Enrollment.findAll({
-      where: {
-        canceled_at: null,
-      },
-      order: ['start_date'],
+      where: condition,
       attributes: ['id', 'start_date', 'end_date', 'price', 'active'],
       include: [
         {
@@ -57,7 +58,7 @@ class EnrollmentController {
       return res.status(400).json({ error: 'Plan not found' });
     }
 
-    const start_date = parseISO(req.body.start_date);
+    const start_date = addHours(parseISO(req.body.start_date), 1);
     const end_date = addMonths(start_date, planExist.duration);
     const price = planExist.price * planExist.duration;
 

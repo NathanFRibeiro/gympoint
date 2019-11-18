@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { utcToZonedTime } from 'date-fns-tz';
+import { format } from 'date-fns-tz';
 import { FaPlus, FaEdit, FaTrash, FaCircle } from 'react-icons/fa';
 
-import { format, parseISO } from 'date-fns';
+import { parseISO } from 'date-fns';
 import { Container, TitleBar, EnrollmentTable } from './styles';
 import api from '~/services/api';
 import throwError from '~/services/error';
@@ -21,19 +21,13 @@ export default function Enrollments() {
   }
 
   async function configureEnrollments(data) {
-    const { timezone } = Intl.DateTimeFormat().resolvedOptions();
-
     const dataEnrollments = await data.map(enrollment => ({
       ...enrollment,
-      startDateFormatted: format(
-        utcToZonedTime(enrollment.start_date, timezone),
-        'PP'
-      ),
-      endDateFormatted: format(
-        utcToZonedTime(enrollment.end_date, timezone),
-        'PP'
-      ),
+      startDateFormatted: format(parseISO(enrollment.start_date), 'PP'),
+      endDateFormatted: format(parseISO(enrollment.end_date), 'PP'),
     }));
+
+    console.log(dataEnrollments);
 
     setEnrollments(dataEnrollments);
   }
