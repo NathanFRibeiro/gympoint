@@ -78,6 +78,10 @@ export const EnrollmentTable = styled.table`
     }
   }
 
+  tbody center {
+    color: #888;
+  }
+
   button {
     width: 30px;
     height: 30px;

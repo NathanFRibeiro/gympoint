@@ -44,9 +44,10 @@ export const Container = styled.div`
     }
 
     span {
-      color: #fb6f91;
-      align-self: flex-start;
+      color: #ee4d64;
+      align-self: center;
       font-weight: bold;
+      margin-top: 15px;
     }
 
     strong {

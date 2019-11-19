@@ -71,20 +71,27 @@ export default function Students() {
           </tr>
         </thead>
         <tbody>
-          {students.map(student => (
-            <tr key={student.id}>
-              <td>{student.name}</td>
-              <td>{student.email}</td>
-              <td>{student.age}</td>
-              <td>
-                <div>
-                  <button onClick={() => handleEdit(student.id)} type="button">
-                    <FaEdit size={16} color="#fff" />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
+          {students.length === 0 ? (
+            <center>No students registered.</center>
+          ) : (
+            students.map(student => (
+              <tr key={student.id}>
+                <td>{student.name}</td>
+                <td>{student.email}</td>
+                <td>{student.age}</td>
+                <td>
+                  <div>
+                    <button
+                      onClick={() => handleEdit(student.id)}
+                      type="button"
+                    >
+                      <FaEdit size={16} color="#fff" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </StudentTable>
     </Container>

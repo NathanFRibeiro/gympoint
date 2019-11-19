@@ -69,32 +69,36 @@ export default function Plans() {
           </tr>
         </thead>
         <tbody>
-          {plans.map(plan => (
-            <tr>
-              <td>{plan.title}</td>
-              <td>
-                {plan.duration} {plan.duration !== 1 ? 'months' : 'month'}
-              </td>
-              <td>U$ {plan.price}</td>
-              <td>
-                <div>
-                  <button onClick={() => handleEdit(plan.id)} type="button">
-                    <FaEdit size={16} color="#fff" />
-                  </button>
-                  <button
-                    onClick={() => {
-                      window.confirm(
-                        'Are you sure you wish to delete this plan?'
-                      ) && handleDelete(plan.id);
-                    }}
-                    type="button"
-                  >
-                    <FaTrash size={16} color="#fff" />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
+          {plans.length === 0 ? (
+            <center>No plan registered.</center>
+          ) : (
+            plans.map(plan => (
+              <tr>
+                <td>{plan.title}</td>
+                <td>
+                  {plan.duration} {plan.duration !== 1 ? 'months' : 'month'}
+                </td>
+                <td>U$ {plan.price}</td>
+                <td>
+                  <div>
+                    <button onClick={() => handleEdit(plan.id)} type="button">
+                      <FaEdit size={16} color="#fff" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        window.confirm(
+                          'Are you sure you wish to delete this plan?'
+                        ) && handleDelete(plan.id);
+                      }}
+                      type="button"
+                    >
+                      <FaTrash size={16} color="#fff" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </PlanTable>
     </Container>

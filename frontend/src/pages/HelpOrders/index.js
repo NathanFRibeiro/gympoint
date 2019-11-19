@@ -76,16 +76,20 @@ export default function HelpOrders() {
             </tr>
           </thead>
           <tbody>
-            {orders.map(order => (
-              <tr key={order.id}>
-                <td>{order.student.name}</td>
-                <td>
-                  <button onClick={() => handleClick(order.id)} type="button">
-                    <MdQuestionAnswer size={16} color="#fff" />
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {orders.length === 0 ? (
+              <center>No help order registered.</center>
+            ) : (
+              orders.map(order => (
+                <tr key={order.id}>
+                  <td>{order.student.name}</td>
+                  <td>
+                    <button onClick={() => handleClick(order.id)} type="button">
+                      <MdQuestionAnswer size={16} color="#fff" />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </OrdersTable>
         <ReactModal

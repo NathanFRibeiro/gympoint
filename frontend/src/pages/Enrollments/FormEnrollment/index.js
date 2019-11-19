@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import React, { useState, useEffect, useMemo } from 'react';
-import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 import { Link, useHistory } from 'react-router-dom';
 import { parseISO, addMonths, format, isValid } from 'date-fns';
@@ -9,8 +8,6 @@ import AsyncSelect from 'react-select/async';
 import { Container, TitleBar, HorizontalInputs } from './styles';
 import api from '~/services/api';
 import throwError from '~/services/error';
-
-// Validação com yup
 
 export default function FormEnrollment({ match }) {
   const [mode, setMode] = useState('New');
@@ -22,6 +19,7 @@ export default function FormEnrollment({ match }) {
   const [endDate, setEndDate] = useState('');
   const [totalPrice, setTotalPrice] = useState((0).toFixed(2));
   const [options, setOptions] = useState([]);
+  const [fieldsAreValid, setFieldsAreValid] = useState(true);
 
   const history = useHistory();
 
@@ -164,13 +162,19 @@ export default function FormEnrollment({ match }) {
         history.push('/enrollments');
       })
       .catch(error => {
-        console.log(error);
         throwError(error);
       });
   }
 
   async function handleSubmit(data) {
-    mode === 'New' ? create(data) : edit(data);
+    const { start_date } = data;
+    setFieldsAreValid(true);
+
+    if (!studentSelected || !planSelected || start_date === '') {
+      return setFieldsAreValid(false);
+    }
+
+    return mode === 'New' ? create(data) : edit(data);
   }
 
   return (
@@ -206,6 +210,7 @@ export default function FormEnrollment({ match }) {
               onChange={e => setPlanSelected(e.target.value)}
               value={planSelected}
             >
+              <option value="-1">Select a plan</option>
               {options.map(p => (
                 <option key={p.id} value={p.id}>
                   {p.title}
@@ -241,6 +246,7 @@ export default function FormEnrollment({ match }) {
         <button type="submit">
           {mode === 'New' ? 'CREATE ENROLLMENT' : 'UPDATE ENROLLMENT'}
         </button>
+        {!fieldsAreValid && <span> Attention! All fields are required.</span>}
       </Form>
     </Container>
   );

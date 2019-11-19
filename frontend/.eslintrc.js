@@ -26,7 +26,6 @@ module.exports = {
       },
     ],
     'import/prefer-default-export': 'off',
-    'no-console': 'off',
     'react/state-in-constructor': 'off',
     'react/destructuring-assignment': 'off',
     'react/static-property-placement': 'off',
@@ -39,7 +38,7 @@ module.exports = {
     'jsx-a11y/control-has-associated-label': 'off',
 
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'off',
+    'react-hooks/exhaustive-deps': 0,
   },
   settings: {
     'import/resolver': {
