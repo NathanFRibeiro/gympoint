@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  background: #ffff;
+  background: #f5f5f5;
   justify-content: center;
   align-items: center;
   padding: 0 20px;
@@ -10,5 +10,5 @@ export const Container = styled.View`
 
 export const Form = styled.View`
   align-self: stretch;
-  margin-top: 50px;
+  margin-top: 10px;
 `;
