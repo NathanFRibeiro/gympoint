@@ -68,9 +68,15 @@ const AppTab = createBottomTabNavigator(
   }
 );
 
-export default createAppContainer(
-  createSwitchNavigator({
-    SignIn,
-    AppTab,
-  })
-);
+export default (signed = false) =>
+  createAppContainer(
+    createSwitchNavigator(
+      {
+        Sign: SignIn,
+        App: AppTab,
+      },
+      {
+        initialRouteName: signed ? 'App' : 'Sign',
+      }
+    )
+  );

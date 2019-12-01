@@ -5,7 +5,12 @@ import Student from '../models/Student';
 class StudentController {
   async index(req, res) {
     const { name } = req.query;
+    const { id } = req.params;
 
+    if (id) {
+      const student = await Student.findByPk(id);
+      return res.json(student);
+    }
     const student = name
       ? await Student.findAll({
           where: {

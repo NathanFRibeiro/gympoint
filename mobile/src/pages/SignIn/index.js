@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Image } from 'react-native';
 
@@ -6,13 +7,20 @@ import Button from '~/components/Button';
 import Input from '~/components/Input';
 import logo from '~/assets/logo.png';
 
+import { signInRequest } from '~/store/modules/auth/action';
+
 import { Container, Form } from './styles';
 
 export default function SignIn(props) {
-  function handleSign() {
-    const { navigation } = props;
+  const dispatch = useDispatch();
+  const [studentID, setStudentID] = useState(null);
 
-    navigation.navigate('AppTab');
+  function handleSign() {
+    dispatch(signInRequest(studentID));
+
+    // const { navigation } = props;
+
+    // navigation.navigate('AppTab');
   }
 
   return (
@@ -24,6 +32,8 @@ export default function SignIn(props) {
           placeholder="Type your student ID"
           returnKeyType="send"
           onSubmitEditing={handleSign}
+          value={studentID}
+          onChangeText={setStudentID}
         />
         <Button onPress={handleSign}>Sign In</Button>
       </Form>

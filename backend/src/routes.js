@@ -18,6 +18,11 @@ const routes = new Router();
 routes.post('/sessions', SessionController.store);
 
 /**
+ * Student
+ */
+routes.get('/students/:id', StudentController.index);
+
+/**
  * Checkins
  */
 routes.post('/students/:studentId/checkins', CheckinController.store);
