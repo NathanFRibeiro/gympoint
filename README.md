@@ -14,7 +14,7 @@
 ## Requirements
 - [x] Back-end: [Challenge 02](https://github.com/Rocketseat/bootcamp-gostack-desafio-02)
 - [x] Back-end: [Challenge 03](https://github.com/Rocketseat/bootcamp-gostack-desafio-03)
-- [ ]  Front-end web: [Challenge 09](https://github.com/Rocketseat/bootcamp-gostack-desafio-09)
+- [x]  Front-end web: [Challenge 09](https://github.com/Rocketseat/bootcamp-gostack-desafio-09)
 - [ ]  Front-end mobile: [Challenge 10](https://github.com/Rocketseat/bootcamp-gostack-desafio-10)
 
 ## Technologies
@@ -33,10 +33,42 @@ This project was developed using the following libs and technologies:
 - [x] [Nodemon](https://nodemon.io/)
 - [x] [Sucrase](https://github.com/alangpierce/sucrase)
 - [x] [date-fns](https://date-fns.org/)
+- [x] [Bee Queue](https://github.com/bee-queue/bee-queue) 
+- [x] [Sentry](https://sentry.io/)
+- [x] [Youch](https://www.npmjs.com/package/youch)
+- [x] [Yup](https://github.com/jquense/yup)
+- [x] [ESLint](https://eslint.org/)
+- [x] [Prettier](https://prettier.io/)
 
 ### Front-end web
 
-### Front-end mobile
+- [x] [React](http://reactjs.org)
+- [x] [Redux](https://redux.js.org/)
+- [x] [Redux Saga](https://github.com/redux-saga/redux-saga)
+- [x] [React Router DOM](https://www.npmjs.com/package/react-router-dom)
+- [x] [Styled Components](https://www.styled-components.com/)
+- [x] [Redux Persist](https://github.com/rt2zz/redux-persist)
+- [x] [Reactotron](https://github.com/infinitered/reactotron)
+- [x] [Axios](https://github.com/axios/axios)
+- [x] [date-fns](https://date-fns.org/)
+- [x] [Polished](https://github.com/styled-components/polished)
+- [x] [React-Toastify](https://github.com/fkhadra/react-toastify)
+- [x] [@Rocketseat/Unform](https://github.com/Rocketseat/unform)
+- [x] [ESLint](https://eslint.org/)
+- [x] [Prettier](https://prettier.io/)
+
+### Mobile
+
+- [x] [React Native](https://facebook.github.io/react-native/)
+- [x] [React Navigation](https://reactnavigation.org/)
+- [x] [Redux](https://redux.js.org/)
+- [x] [Redux Saga](https://github.com/redux-saga/redux-saga)
+- [x] [Styled Components](https://www.styled-components.com/)
+- [x] [Redux Persist](https://github.com/rt2zz/redux-persist)
+- [x] [Reactotron](https://github.com/infinitered/reactotron)
+- [x] [Axios](https://github.com/axios/axios)
+- [x] [ESLint](https://eslint.org/)
+- [x] [Prettier](https://prettier.io/)
 
 ## Author
 
