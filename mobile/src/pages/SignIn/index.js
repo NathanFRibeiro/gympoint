@@ -11,16 +11,12 @@ import { signInRequest } from '~/store/modules/auth/action';
 
 import { Container, Form } from './styles';
 
-export default function SignIn(props) {
+export default function SignIn() {
   const dispatch = useDispatch();
   const [studentID, setStudentID] = useState(null);
 
   function handleSign() {
     dispatch(signInRequest(studentID));
-
-    // const { navigation } = props;
-
-    // navigation.navigate('AppTab');
   }
 
   return (

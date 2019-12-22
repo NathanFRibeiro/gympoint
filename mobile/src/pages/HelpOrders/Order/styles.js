@@ -46,13 +46,15 @@ export const Title = styled.Text`
   font-weight: bold;
 `;
 
-export const Question = styled.Text`
+export const Answer = styled.Text`
   font-size: 14px;
   margin-top: 10px;
   color: #666666;
   line-height: 21px;
+
+  ${({ unanswered }) => unanswered && `font-style: italic; color:#999;`}
 `;
 
-export const Answer = styled(Question)`
+export const Question = styled(Answer)`
   margin-bottom: 15px;
 `;

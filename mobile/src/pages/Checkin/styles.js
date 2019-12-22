@@ -8,6 +8,15 @@ export const Container = styled.View`
   padding: 15px 10px 10px 10px;
 `;
 
+export const Empty = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TextEmpty = styled.Text`
+  color: #999;
+`;
+
 export const CheckinList = styled.FlatList`
   width: 100%;
   margin-top: 15px;

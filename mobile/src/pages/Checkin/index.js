@@ -10,6 +10,8 @@ import {
   CheckinItem,
   Title,
   OccurredAt,
+  Empty,
+  TextEmpty,
 } from './styles';
 
 import Button from '~/components/Button';
@@ -81,6 +83,11 @@ export default function Checkin() {
       <CheckinList
         data={checkins}
         keyExtractor={checkin => checkin.id}
+        ListEmptyComponent={
+          <Empty>
+            <TextEmpty>You don&apos;t have any checkin yet.</TextEmpty>
+          </Empty>
+        }
         renderItem={({ item }) => (
           <CheckinItem key={item.id}>
             <Title>{item.title}</Title>

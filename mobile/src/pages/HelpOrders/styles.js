@@ -14,6 +14,15 @@ export const OrderList = styled.FlatList`
   padding-top: 10px;
 `;
 
+export const Empty = styled.View`
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TextEmpty = styled.Text`
+  color: #999;
+`;
+
 export const OrderItem = styled.View`
   display: flex;
 

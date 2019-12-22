@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Alert } from 'react-native';
+import { useSelector } from 'react-redux';
+
+import { parseISO, formatRelative } from 'date-fns';
 
 import {
   Container,
@@ -9,69 +13,94 @@ import {
   OccurredAt,
   Question,
   Header,
+  Empty,
+  TextEmpty,
 } from './styles';
-import Button from '~/components/Button';
 
-const checkins = [
-  {
-    id: '1',
-    answered: false,
-    title: 'Checkin number #1',
-    date: 'Today at 9',
-    question:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel dictum ante. Donec vulputate non est vel congue. Suspendisse sit amet tellus vitae felis feugiat congue. In mollis sollicitudin purus vel semper. Phasellus in nisl pretium, bibendum nibh et, pellentesque metus. Vestibulum vulputate orci vel vehicula rutrum. Suspendisse quis convallis velit. Ut vitae tincidunt dolor. Mauris feugiat viverra neque, quis commodo dolor facilisis eu. Suspendisse eget consequat orci, sit amet placerat tellus. Curabitur vulputate nibh eget mi bibendum commodo. Nulla egestas orci vel ligula interdum placerat. Fusce tincidunt aliquam urna vel molestie.',
-  },
-  {
-    id: '2',
-    answered: true,
-    title: 'Checkin number #1',
-    date: 'Today at 9',
-    question:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel dictum ante. Donec vulputate non est vel congue. Suspendisse sit amet tellus vitae felis feugiat congue. In mollis sollicitudin purus vel semper. Phasellus in nisl pretium, bibendum nibh et, pellentesque metus. Vestibulum vulputate orci vel vehicula rutrum. Suspendisse quis convallis velit. Ut vitae tincidunt dolor. Mauris feugiat viverra neque, quis commodo dolor facilisis eu. Suspendisse eget consequat orci, sit amet placerat tellus. Curabitur vulputate nibh eget mi bibendum commodo. Nulla egestas orci vel ligula interdum placerat. Fusce tincidunt aliquam urna vel molestie.',
-  },
-  {
-    id: '3',
-    answered: false,
-    title: 'Checkin number #1',
-    date: 'Today at 9',
-    question:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel dictum ante. Donec vulputate non est vel congue. Suspendisse sit amet tellus vitae felis feugiat congue. In mollis sollicitudin purus vel semper. Phasellus in nisl pretium, bibendum nibh et, pellentesque metus. Vestibulum vulputate orci vel vehicula rutrum. Suspendisse quis convallis velit. Ut vitae tincidunt dolor. Mauris feugiat viverra neque, quis commodo dolor facilisis eu. Suspendisse eget consequat orci, sit amet placerat tellus. Curabitur vulputate nibh eget mi bibendum commodo. Nulla egestas orci vel ligula interdum placerat. Fusce tincidunt aliquam urna vel molestie.',
-  },
-  {
-    id: '4',
-    answered: true,
-    title: 'Checkin number #1',
-    date: 'Today at 9',
-    question:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel dictum ante. Donec vulputate non est vel congue. Suspendisse sit amet tellus vitae felis feugiat congue. In mollis sollicitudin purus vel semper. Phasellus in nisl pretium, bibendum nibh et, pellentesque metus. Vestibulum vulputate orci vel vehicula rutrum. Suspendisse quis convallis velit. Ut vitae tincidunt dolor. Mauris feugiat viverra neque, quis commodo dolor facilisis eu. Suspendisse eget consequat orci, sit amet placerat tellus. Curabitur vulputate nibh eget mi bibendum commodo. Nulla egestas orci vel ligula interdum placerat. Fusce tincidunt aliquam urna vel molestie.',
-  },
-];
+import Button from '~/components/Button';
+import api from '~/services/api';
 
 export default function HelpOrders(props) {
-  function handleOrder() {
+  const userID = useSelector(state => state.auth.id);
+  const [orders, setOrders] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+
+  async function configureData(data) {
+    const orderList = await data.map(order => ({
+      ...order,
+      dateFormatted: formatRelative(parseISO(order.created_at), new Date()),
+      answered: !!order.answer_at,
+    }));
+
+    setOrders(orderList);
+    setIsFetching(false);
+  }
+
+  async function getOrders() {
+    await api
+      .get(`students/${userID}/help-orders`)
+      .then(response => {
+        configureData(response.data);
+      })
+      .catch(error => {
+        const message = error.response
+          ? {
+              title: 'Could not get your help orders!',
+              subtitle: error.response.data.error,
+            }
+          : {
+              title: 'Network error!',
+              subtitle: 'Check your connection.',
+            };
+
+        Alert.alert(message.title, message.subtitle);
+      });
+  }
+
+  useEffect(() => {
+    getOrders();
+  }, []);
+
+  function handleOrder(id) {
     const { navigation } = props;
-    navigation.navigate('Order');
+
+    const order = orders.find(o => o.id === id);
+
+    navigation.navigate('Order', { order });
   }
 
   function handleNewOrder() {
     const { navigation } = props;
-    navigation.navigate('NewOrder');
+    navigation.navigate('NewOrder', { refreshItems: getOrders });
+  }
+
+  function onRefresh() {
+    setIsFetching(true);
+    getOrders();
   }
 
   return (
     <Container>
       <Button onPress={() => handleNewOrder()}>New Help Order</Button>
+
       <OrderList
-        data={checkins}
-        keyExtractor={checkin => checkin.id}
+        data={orders}
+        ListEmptyComponent={
+          <Empty>
+            <TextEmpty>You don&apos;t have any help orders yet.</TextEmpty>
+          </Empty>
+        }
+        keyExtractor={order => order.id}
+        onRefresh={() => onRefresh()}
+        refreshing={isFetching}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handleOrder()}>
-            <OrderItem key={item.id}>
+          <TouchableOpacity key={item.id} onPress={() => handleOrder(item.id)}>
+            <OrderItem>
               <Header>
                 <Status answered={item.answered}>
                   {item.answered ? 'Answered' : 'No reply'}
                 </Status>
-                <OccurredAt>{item.date}</OccurredAt>
+                <OccurredAt>{item.dateFormatted}</OccurredAt>
               </Header>
               <Question numberOfLines={3}>{item.question}</Question>
             </OrderItem>
