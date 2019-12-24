@@ -42,9 +42,16 @@ export const Header = styled.View`
   align-items: center;
 `;
 
+export const StatusArea = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
 export const Status = styled.Text`
+  padding-left: 5px;
   font-weight: bold;
-  color: #666666;
+  color: #999;
 
   ${({ answered }) =>
     answered &&

@@ -3,6 +3,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Alert } from 'react-native';
 import { useSelector } from 'react-redux';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import { parseISO, formatRelative } from 'date-fns';
 
 import {
@@ -15,6 +17,7 @@ import {
   Header,
   Empty,
   TextEmpty,
+  StatusArea,
 } from './styles';
 
 import Button from '~/components/Button';
@@ -90,16 +93,27 @@ export default function HelpOrders(props) {
             <TextEmpty>You don&apos;t have any help orders yet.</TextEmpty>
           </Empty>
         }
-        keyExtractor={order => order.id}
+        keyExtractor={order => order.id.toString()}
         onRefresh={() => onRefresh()}
         refreshing={isFetching}
         renderItem={({ item }) => (
-          <TouchableOpacity key={item.id} onPress={() => handleOrder(item.id)}>
+          <TouchableOpacity
+            key={item.id.toString()}
+            onPress={() => handleOrder(item.id)}
+          >
             <OrderItem>
               <Header>
-                <Status answered={item.answered}>
-                  {item.answered ? 'Answered' : 'No reply'}
-                </Status>
+                {item.answered ? (
+                  <StatusArea>
+                    <Icon name="check-circle" size={14} color="green" />
+                    <Status answered={item.answered}>answered</Status>
+                  </StatusArea>
+                ) : (
+                  <StatusArea>
+                    <Status answered={item.answered}>no reply</Status>
+                  </StatusArea>
+                )}
+
                 <OccurredAt>{item.dateFormatted}</OccurredAt>
               </Header>
               <Question numberOfLines={3}>{item.question}</Question>

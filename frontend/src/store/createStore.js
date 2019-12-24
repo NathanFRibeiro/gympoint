@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createStore, compose, applyMiddleware } from 'redux';
 
 export default (reducers, middlewares) => {

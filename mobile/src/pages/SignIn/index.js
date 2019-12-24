@@ -25,6 +25,8 @@ export default function SignIn() {
       <Form>
         <Input
           name="student-id"
+          keyboardType="numeric"
+          numeric
           placeholder="Type your student ID"
           returnKeyType="send"
           onSubmitEditing={handleSign}

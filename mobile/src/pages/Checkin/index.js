@@ -82,14 +82,14 @@ export default function Checkin() {
       <Button onPress={() => handleCheckin()}>New Check-In</Button>
       <CheckinList
         data={checkins}
-        keyExtractor={checkin => checkin.id}
+        keyExtractor={checkin => checkin.id.toString()}
         ListEmptyComponent={
           <Empty>
             <TextEmpty>You don&apos;t have any checkin yet.</TextEmpty>
           </Empty>
         }
         renderItem={({ item }) => (
-          <CheckinItem key={item.id}>
+          <CheckinItem key={item.id.toString()}>
             <Title>{item.title}</Title>
             <OccurredAt>{item.dateFormatted}</OccurredAt>
           </CheckinItem>

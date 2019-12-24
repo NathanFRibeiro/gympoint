@@ -1,8 +1,6 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { Alert } from 'react-native';
 
-// import history from '~/services/history';
-
 import api from '~/services/api';
 
 import { signInSuccess, signFailure } from './action';
@@ -11,6 +9,11 @@ export function* signIn({ payload }) {
   try {
     const { studentID } = payload;
 
+    if (!studentID) {
+      Alert.alert('Student ID is required!', 'Please, type a valid ID.');
+      throw new Error();
+    }
+
     const response = yield call(api.get, `students/${studentID}`);
 
     if (response.data) {
@@ -18,12 +21,9 @@ export function* signIn({ payload }) {
 
       yield put(signInSuccess(id, name));
     } else {
-      yield put(signFailure());
-
-      Alert.alert('Student not found!', 'Type a valid ID.');
+      Alert.alert('Student not found!', 'Please, type a valid ID.');
+      throw new Error();
     }
-
-    // history.push('/dashboard');
   } catch (error) {
     yield put(signFailure());
   }
