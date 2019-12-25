@@ -1,68 +1,66 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">
+  <img alt="Gympoint" title="Gympoint" src="https://github.com/Rocketseat/bootcamp-gostack-desafio-03/blob/master/.github/logo.png?raw=true" width="200px" />
+</h1>
 
-## Available Scripts
+<p align="center">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
+</p>
 
-In the project directory, you can run:
+> Gym management using Javascript stacks: node.js (backend), ReactJS (frontend) and React Native (mobile).
 
-### `yarn start`
+> This project is being built for the final challenge of Rocketseat's GoStack bootcamp.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Requirements
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- [x] Back-end: [Challenge 02](https://github.com/Rocketseat/bootcamp-gostack-desafio-02)
+- [x] Back-end: [Challenge 03](https://github.com/Rocketseat/bootcamp-gostack-desafio-03)
+- [x] Front-end web: [Challenge 09](https://github.com/Rocketseat/bootcamp-gostack-desafio-09)
+- [ ] Front-end mobile: [Challenge 10](https://github.com/Rocketseat/bootcamp-gostack-desafio-10)
 
-### `yarn test`
+## Technologies
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This project was developed using the following libs and technologies:
 
-### `yarn build`
+### Front-end web
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [x] [React](http://reactjs.org)
+- [x] [Redux](https://redux.js.org/)
+- [x] [Redux Saga](https://github.com/redux-saga/redux-saga)
+- [x] [React Router DOM](https://www.npmjs.com/package/react-router-dom)
+- [x] [Styled Components](https://www.styled-components.com/)
+- [x] [Redux Persist](https://github.com/rt2zz/redux-persist)
+- [x] [Reactotron](https://github.com/infinitered/reactotron)
+- [x] [Axios](https://github.com/axios/axios)
+- [x] [date-fns](https://date-fns.org/)
+- [x] [Polished](https://github.com/styled-components/polished)
+- [x] [React-Toastify](https://github.com/fkhadra/react-toastify)
+- [x] [@Rocketseat/Unform](https://github.com/Rocketseat/unform)
+- [x] [ESLint](https://eslint.org/)
+- [x] [Prettier](https://prettier.io/)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Instalation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Frontend Web
 
-### `yarn eject`
+```sh
+# install all dependencies
+yarn install
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# start the app on a new terminal window
+yarn start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Author
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+👤 **Nathan Ribeiro**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Linkedin: [Nathan Ribeiro](https://www.linkedin.com/in/nathanfribeiro/)
+- Github: [@NathanFRibeiro](https://github.com/NathanFRibeiro)
 
-## Learn More
+## Show your support
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Give a ⭐️ if you like this project!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+_Made with ❤️ by [Nathan Ribeiro](https://github.com/NathanFRibeiro)_

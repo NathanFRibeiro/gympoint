@@ -122,7 +122,7 @@ export default function HelpOrders() {
               )}
               <textarea onChange={e => setAnswer(e.target.value)} />
               <button onClick={() => handleSubmit()} type="button">
-                ANSWER
+                Reply
               </button>
             </div>
           </ContentModal>

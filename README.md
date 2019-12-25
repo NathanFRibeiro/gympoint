@@ -70,6 +70,49 @@ This project was developed using the following libs and technologies:
 - [x] [ESLint](https://eslint.org/)
 - [x] [Prettier](https://prettier.io/)
 
+## Installation
+
+```sh
+# create and start two images on docker: database (postgres) and redis.
+docker run --name database -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres
+docker run --name redisbase -p 6379:6379 -d -t redis:alpine
+docker start database redisbase
+```
+### Backend
+```sh
+# install all dependencies
+yarn install
+
+# execute sequelize migrations and seeds
+yarn sequelize db:migrate
+yarn sequelize db:seed:all
+
+# start the e-mail queue service
+yarn queue
+
+# start the app on a new terminal window
+yarn dev
+```
+
+### Frontend web
+```sh
+# install all dependencies
+yarn install
+
+# start the app on a new terminal window
+yarn start
+```
+
+### Mobile
+```sh
+# install all dependencies
+yarn install
+
+# start the app on a new terminal window
+react-native run-android
+react-native start
+```
+
 ## Author
 
 👤 **Nathan Ribeiro**
