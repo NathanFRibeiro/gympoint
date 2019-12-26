@@ -15,7 +15,7 @@
 - [x] Back-end: [Challenge 02](https://github.com/Rocketseat/bootcamp-gostack-desafio-02)
 - [x] Back-end: [Challenge 03](https://github.com/Rocketseat/bootcamp-gostack-desafio-03)
 - [x]  Front-end web: [Challenge 09](https://github.com/Rocketseat/bootcamp-gostack-desafio-09)
-- [ ]  Front-end mobile: [Challenge 10](https://github.com/Rocketseat/bootcamp-gostack-desafio-10)
+- [x]  Front-end mobile: [Challenge 10](https://github.com/Rocketseat/bootcamp-gostack-desafio-10)
 
 ## Technologies
 
