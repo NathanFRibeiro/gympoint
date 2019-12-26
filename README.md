@@ -7,7 +7,7 @@
 </p>
 
 
-> Gym management using Javascript stacks: node.js (backend), ReactJS (frontend) and React Native (mobile).
+> Gym management using Javascript stacks: node.js (backend), ReactJS (frontend) and React Native (mobile) for Android app.
 
 > This project is being built for the final challenge of Rocketseat's GoStack bootcamp.
 
@@ -15,7 +15,7 @@
 - [x] Back-end: [Challenge 02](https://github.com/Rocketseat/bootcamp-gostack-desafio-02)
 - [x] Back-end: [Challenge 03](https://github.com/Rocketseat/bootcamp-gostack-desafio-03)
 - [x]  Front-end web: [Challenge 09](https://github.com/Rocketseat/bootcamp-gostack-desafio-09)
-- [ ]  Front-end mobile: [Challenge 10](https://github.com/Rocketseat/bootcamp-gostack-desafio-10)
+- [x]  Front-end mobile: [Challenge 10](https://github.com/Rocketseat/bootcamp-gostack-desafio-10)
 
 ## Technologies
 
@@ -109,6 +109,7 @@ yarn start
 yarn install
 
 # start the app on a new terminal window
+# this app was developed only for android.
 react-native run-android
 react-native start
 ```
