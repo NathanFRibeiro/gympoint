@@ -1,3 +1,5 @@
+## Gympoint - Mobile (Android only)
+
 <h1 align="center">
   <img alt="Gympoint" title="Gympoint" src="https://github.com/Rocketseat/bootcamp-gostack-desafio-03/blob/master/.github/logo.png?raw=true" width="200px" />
 </h1>
@@ -6,10 +8,11 @@
   <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
 </p>
 
+> This project is being built for the final challenge of Rocketseat's GoStack bootcamp.
 
 > Gym management using Javascript stacks: node.js (backend), ReactJS (frontend) and React Native (mobile).
 
-> This project is being built for the final challenge of Rocketseat's GoStack bootcamp.
+> The mobile version was developed for Android only.
 
 ## Requirements
 - [x]  Front-end mobile: [Challenge 10](https://github.com/Rocketseat/bootcamp-gostack-desafio-10)
