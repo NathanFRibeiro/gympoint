@@ -60,7 +60,7 @@ export default function Enrollments() {
   return (
     <Container>
       <TitleBar>
-        <h2>Student Management</h2>
+        <h2>Enrollment Management</h2>
 
         <Link to="/enrollments/new">
           <button type="button">
@@ -87,8 +87,14 @@ export default function Enrollments() {
           ) : (
             enrollments.map(enrollment => (
               <tr key={enrollment.id}>
-                <td>{enrollment.student.name}</td>
-                <td>{enrollment.plan.title}</td>
+                <td>
+                  {enrollment.student
+                    ? enrollment.student.name
+                    : 'Deleted student'}
+                </td>
+                <td>
+                  {enrollment.plan ? enrollment.plan.title : 'Deleted plan'}
+                </td>
                 <td>{enrollment.startDateFormatted}</td>
                 <td>{enrollment.endDateFormatted}</td>
                 <td>
