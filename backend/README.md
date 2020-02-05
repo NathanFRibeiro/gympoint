@@ -1,7 +1,7 @@
 ## Gympoint - Backend
 
 <h1 align="center">
-  <img alt="Gympoint" title="Gympoint" src="https://github.com/Rocketseat/bootcamp-gostack-desafio-03/blob/master/.github/logo.png?raw=true" width="200px" />
+  <img alt="Gympoint" title="Gympoint" src="https://github.com/NathanFRibeiro/gympoint/blob/master/frontend/src/assets/logo.png?raw=true" width="200px" />
 </h1>
 
 <p align="center">
